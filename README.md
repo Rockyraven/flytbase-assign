@@ -30,3 +30,11 @@ This backend application provides the following functionality:
 - Backend: Node.js and Express.js
 - Database: MongoDB
 
+## Installation and Usage
+
+To install dependencies, run:
+
+- npm i 
+- npm start
+for use the functionality
+-root link is http://localhost:5000/
