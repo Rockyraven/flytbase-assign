@@ -1,6 +1,9 @@
 const missionModal = require("../modal/missionModal");
 const siteModal = require("../modal/siteModal");
 
+
+
+// Get all mission by user 
 const getAllMission = async (req, res) => {
     try {
         const mission = await missionModal
@@ -13,6 +16,8 @@ const getAllMission = async (req, res) => {
         res.status(500).json({ messgae: "something went wrong" });
     }
 }
+
+// Create mission controller  by user 
 const createMission = async (req, res) => {
     try {
         const userId = req.userId;
@@ -48,6 +53,9 @@ const createMission = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
+
+
+// Update mission controller by id by user 
 const updateMission = async (req, res) => {
     try {
         const userId = req.userId;
@@ -82,7 +90,7 @@ const updateMission = async (req, res) => {
       }
 }
 
-
+// Delete  mission controller by id by user 
 const deleteMission = async (req, res) => {
     try {
         // Extract site ID from request parameters
@@ -95,14 +103,31 @@ const deleteMission = async (req, res) => {
         }
     
         // Delete the site document
-        await missionModal.deleteOne({ _id: missionId }); // Or use findByIdAndDelete(siteId);
+        await missionModal.deleteOne({ _id: missionId }); // Or use findByIdAndDelete(missionId);
     
       res.status(200).json({ message: 'Mission deleted successfully' });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
   };
+
+
+  // get All controller by by server request the server to retrieve all missions belonging to aparticular site.
+  const getAllMissionBySite = async (req, res) => {
+    const {siteId} = req.params;
+    try {
+        const mission = await missionModal
+            .where("siteId")
+            .equals(siteId)
+
+        res.status(200).json(mission);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ messgae: "something went wrong" });
+    }
+}
+
   
 
-module.exports = { getAllMission, createMission, updateMission, deleteMission };
+module.exports = { getAllMission, createMission, updateMission, deleteMission, getAllMissionBySite };
 

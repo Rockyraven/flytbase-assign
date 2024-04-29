@@ -1,5 +1,6 @@
 const siteModal = require("../modal/siteModal");
 
+// Get all site by user 
 const getSite = async (req, res) => {
     try {
         const site = await siteModal
@@ -12,6 +13,8 @@ const getSite = async (req, res) => {
         res.status(500).json({ messgae: "something went wrong" });
     }
 }
+
+// Create site controller  by user 
 const createSite = async (req, res) => {
     const userId = req.userId;
     try {
@@ -40,6 +43,8 @@ const createSite = async (req, res) => {
     }
 }
 
+
+// Update site controller by id by user 
 const updateSite = async (req, res) => {
     const userId = req.userId;
     try {
@@ -68,6 +73,8 @@ const updateSite = async (req, res) => {
     }
 };
 
+
+// Delete  site controller by id by user 
 const deleteSite = async (req, res) => {
     try {
       // Extract site ID from request parameters

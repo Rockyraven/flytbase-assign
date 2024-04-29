@@ -1,7 +1,7 @@
 const siteModal = require("../modal/siteModal");
 const droneModal = require("../modal/droneModal");
 
-
+// Get all drone by user 
 const getAllDrone = async (req, res) => {
   try {
     const drone = await droneModal
@@ -15,6 +15,7 @@ const getAllDrone = async (req, res) => {
   }
 }
 
+// Create drone controller  by user 
 const createDrone = async (req, res) => {
   try {
     const userId = req.userId;
@@ -51,7 +52,7 @@ const createDrone = async (req, res) => {
   }
 };
 
-
+// Update drone controller by id by user 
 const updateDrone = async (req, res) => {
   try {
     const userId = req.userId;
@@ -84,6 +85,8 @@ const updateDrone = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 }
+
+// Delete  drone controller by id by user 
 const deleteDrone = async (req, res) => {
   try {
     // Extract site ID from request parameters
@@ -104,5 +107,21 @@ const deleteDrone = async (req, res) => {
   }
 }
 
-module.exports = { getAllDrone, createDrone, updateDrone, deleteDrone };
+
+// get All controller by  server request the server to retrieve all drone belonging to aparticular site.
+const getAllDroneBySite = async (req, res) => {
+  const {siteId} = req.params;
+  try {
+      const site = await droneModal
+          .where("siteId")
+          .equals(siteId)
+
+      res.status(200).json(site);
+  } catch (error) {
+      console.log(error);
+      res.status(500).json({ messgae: "something went wrong" });
+  }
+}
+
+module.exports = { getAllDrone, createDrone, updateDrone, deleteDrone, getAllDroneBySite };
 
